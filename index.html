@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Bot Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <h1>Меню бота</h1>
+        <button onclick="sendCommand('/system_info')">Информация о системе</button>
+        <button onclick="sendCommand('/webcam_snapshot')">Снимок с веб-камеры</button>
+        <button onclick="sendCommand('/screenshot')">Скриншот экрана</button>
+        <!-- Добавьте другие кнопки для команд вашего бота -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
