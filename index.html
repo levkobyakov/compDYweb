@@ -3,17 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Bot Menu</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Управление Ботом</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <h1>Меню бота</h1>
-        <button onclick="sendCommand('/system_info')">Информация о системе</button>
-        <button onclick="sendCommand('/webcam_snapshot')">Снимок с веб-камеры</button>
-        <button onclick="sendCommand('/screenshot')">Скриншот экрана</button>
-        <!-- Добавьте другие кнопки для команд вашего бота -->
-    </div>
+    <h1>Панель управления ботом</h1>
 
-    <script src="script.js"></script>
+    <!-- Кнопки для выполнения команд -->
+    <button onclick="sendCommand('/system_info')">Информация о системе</button>
+    <button onclick="sendCommand('/webcam_snapshot')">Снимок с веб-камеры</button>
+    <button onclick="sendCommand('/screenshot')">Скриншот экрана</button>
+    <button onclick="sendCommand('/reboot')">Перезагрузить компьютер</button>
+    <button onclick="sendCommand('/force_shutdown')">Выключить компьютер</button>
+    <button onclick="sendCommand('/close_browsers')">Закрыть браузеры</button>
+    <button onclick="sendCommand('/monitors_off')">Выключить мониторы</button>
+    <button onclick="sendCommand('/monitors_on')">Включить мониторы</button>
+    <button onclick="startRecording()">Начать запись звука</button>
+    <button onclick="stopRecording()">Остановить запись звука</button>
+    <button onclick="sendCommand('/wakeup')">Включить через WoL</button>
+
+    <script>
+        // Функция для отправки команд боту через Telegram API
+        function sendCommand(command) {
+            fetch(`https://api.telegram.org/botВАШ_ТОКЕН/sendMessage?chat_id=ID_ЧАТА&text=${encodeURIComponent(command)}`)
+                .then(response => {
+                    if (response.ok) {
+                        alert("Команда отправлена!");
+                    } else {
+                        alert("Ошибка при отправке команды.");
+                    }
+                })
+                .catch(error => console.error("Ошибка:", error));
+        }
+
+        // Функции для записи звука
+        let isRecording = false;
+
+        function startRecording() {
+            if (!isRecording) {
+                sendCommand('/start_recording');
+                isRecording = true;
+                alert("Запись начата.");
+            } else {
+                alert("Запись уже идет.");
+            }
+        }
+
+        function stopRecording() {
+            if (isRecording) {
+                sendCommand('/stop_recording');
+                isRecording = false;
+                alert("Запись остановлена.");
+            } else {
+                alert("Запись не запущена.");
+            }
+        }
+    </script>
 </body>
+</html>
